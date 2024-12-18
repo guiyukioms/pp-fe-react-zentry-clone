@@ -88,5 +88,4 @@ Abra [http://localhost:5173](http://localhost:5173) no seu navegador para ver o 
 
 ## <a name="links">🔗 Assets</a>
 Os arquivos utilizados no projeto podem ser encontrados [aqui](https://drive.google.com/file/d/1LFZil-mphcwEkctYoMvHh57CMWHbefkb/view?usp=sharing)
-
 > Este projeto utiliza alguns arquivos e fontes do **[Zentry](https://zentry.com/)** exclusivamente para fins educacionais e de demonstração. Todos os direitos sobre esses arquivos e fontes pertencem aos seus respectivos proprietários. Se você planeja usar este projeto comercialmente ou publicamente, substitua esses arquivos e fontes por aqueles que você possui ou tem permissão para usar. Este projeto não é afiliado a nem endossado pelo **[Zentry](https://zentry.com/)**.
