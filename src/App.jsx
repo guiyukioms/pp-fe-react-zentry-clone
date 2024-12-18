@@ -1,3 +1,4 @@
+import Popup from "./components/Popup";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -9,6 +10,7 @@ import Footer from "./components/Footer";
 function App() {
   return (
     <main className="relative min-h-screen w-screen overflow-x-hidden">
+      <Popup />
       <Navbar />
       <Hero />
       <About />
