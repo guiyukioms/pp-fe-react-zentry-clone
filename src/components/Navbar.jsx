@@ -8,26 +8,27 @@ import Button from "./Button";
 
 const navItems = ["Nexus", "Vault", "Prologue", "About", "Contact"];
 
-const NavBar = () => {
-    // Estado para alternar o indicador de áudio e visual
+const NavBar = ({ audioTrigger }) => {
+    // Estados para gerenciar o áudio e o indicador visual
     const [isAudioPlaying, setIsAudioPlaying] = useState(false);
     const [isIndicatorActive, setIsIndicatorActive] = useState(false);
 
-    // Referências para o áudio e o container de navegação
+    // Referências para o elemento de áudio e o container de navegação
     const audioElementRef = useRef(null);
     const navContainerRef = useRef(null);
 
+    // Estados para a visibilidade da navbar ao rolar a página
     const { y: currentScrollY } = useWindowScroll();
     const [isNavVisible, setIsNavVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
 
-    // Alternar indicador de áudio e visual
+    // Alternar reprodução de áudio e o indicador visual
     const toggleAudioIndicator = () => {
         setIsAudioPlaying((prev) => !prev);
         setIsIndicatorActive((prev) => !prev);
     };
 
-    // Gerenciar a reprodução de áudio
+    // Iniciar o áudio quando o estado de reprodução muda
     useEffect(() => {
         if (isAudioPlaying) {
             audioElementRef.current.play();
@@ -36,17 +37,18 @@ const NavBar = () => {
         }
     }, [isAudioPlaying]);
 
+    // Controlar a visibilidade da navbar com base na rolagem
     useEffect(() => {
         if (currentScrollY === 0) {
-            // Posição mais alta: mostrar a navbar sem o floating-nav
+            // Posição inicial: mostrar a navbar sem "floating-nav"
             setIsNavVisible(true);
             navContainerRef.current.classList.remove("floating-nav");
         } else if (currentScrollY > lastScrollY) {
-            // Rolando para baixo: ocultar a navbar e aplicar o floating-nav
+            // Rolando para baixo: ocultar a navbar e aplicar "floating-nav"
             setIsNavVisible(false);
             navContainerRef.current.classList.add("floating-nav");
         } else if (currentScrollY < lastScrollY) {
-            // Rolando para cima: mostrar a navbar com o floating-nav
+            // Rolando para cima: mostrar a navbar com "floating-nav"
             setIsNavVisible(true);
             navContainerRef.current.classList.add("floating-nav");
         }
@@ -54,6 +56,7 @@ const NavBar = () => {
         setLastScrollY(currentScrollY);
     }, [currentScrollY, lastScrollY]);
 
+    // Aplicar animações de visibilidade na navbar
     useEffect(() => {
         gsap.to(navContainerRef.current, {
             y: isNavVisible ? 0 : -100,
@@ -61,6 +64,14 @@ const NavBar = () => {
             duration: 0.2,
         });
     }, [isNavVisible]);
+
+    // Ativar áudio a partir do evento recebido via props
+    useEffect(() => {
+        if (audioTrigger) {
+            setIsAudioPlaying(true);
+            setIsIndicatorActive(true);
+        }
+    }, [audioTrigger]);
 
     return (
         <div
@@ -72,7 +83,6 @@ const NavBar = () => {
                     {/* Logo e botão de Produto */}
                     <div className="flex items-center gap-7">
                         <img src="/img/logo.png" alt="logo" className="w-10" />
-
                         <Button
                             id="product-button"
                             title="Products"
